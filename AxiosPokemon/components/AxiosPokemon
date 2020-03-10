@@ -1,0 +1,27 @@
+import React,{useState} from 'react';
+import axios from 'axios';
+
+
+const AxiosPokemon =()=>{
+
+    const [state,setState] = useState({
+        pokemons:[]
+    })
+
+    const clickHandler =()=>{
+        axios.get("https://pokeapi.co/api/v2/pokemon")
+        .then(response=>{
+            setState({
+                pokemons: response.data.results
+            })
+        })
+    }
+    return(
+        <div>
+            <button onClick={clickHandler}>Axios Pokemons</button>
+            {state.pokemons.map((index,i)=>(<li key={i}>{index.name}</li>))}
+        </div>
+    )
+}
+
+export default AxiosPokemon;
