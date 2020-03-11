@@ -1,0 +1,45 @@
+import React, {useState} from 'react';
+import {navigate} from '@reach/router'
+const SearchForm =()=>{
+
+
+    const [searchstate,setSearchState] =useState({
+        type:'',
+        id:''
+    })
+
+
+    const onChangeHandler =(event)=>{
+        setSearchState({
+            ...searchstate,
+            [event.target.name] : event.target.value,
+        })
+    }
+
+
+    const onSubmitHandler =(event)=>{
+        event.preventDefault();
+        setSearchState({
+            ...searchstate
+        })
+        navigate("/"+searchstate.type+"/"+searchstate.id)
+    }
+
+    return(
+    <form onSubmit={onSubmitHandler}>
+        <div>
+            <label>Search For:</label>
+            <select onChange={onChangeHandler} name="type">
+                <option></option>
+                <option value="people">People</option>
+                <option value="planets">Planet</option>
+            </select>
+            <label>ID:</label>
+            <input name='id' onChange={onChangeHandler}></input>
+            <button onSubmit={onSubmitHandler}>Search</button>
+        </div>
+    </form>
+    )
+}
+
+export default SearchForm;
